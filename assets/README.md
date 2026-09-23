@@ -29,6 +29,19 @@
 - [任务：任务卡](images/candy-icon-quest.webp)
 - [设置：齿轮](images/candy-icon-settings.webp)
 
-生成 PNG 原稿保留在 Codex 当前任务 generated_images 中；运行时文件仅进行无损 WebP 编码，未裁切、缩放或改画。逐像素核对所有可见 RGB 与完整 alpha 一致。六枚图标合计约 4.1 MiB；淘汰的结算旧图移入 docs/design，避免随构建重复发布。完整生成提示词见 [图标提示词](../../../../docs/design/serpent-run/candy-icons-prompts.md)。
+生成 PNG 原稿保留在 Codex 当前任务 generated_images 中；运行时六枚图标已从 1254×1254 等比缩至 256×256，使用高质量 Lanczos 采样与无损 WebP 编码，保留透明通道，未裁切或改画。淘汰的结算旧图移入 docs/design，避免随构建重复发布。完整生成提示词见 [图标提示词](../../../../docs/design/serpent-run/candy-icons-prompts.md)。
+
+## 运行时尺寸（2026-09-22 优化）
+
+| 素材 | 原始尺寸 | 当前尺寸 | 用途 |
+| --- | --- | --- | --- |
+| 六枚 candy-icon | 1254×1254 | 256×256 | 54–76 逻辑像素图标 |
+| cartoon-mascot.png | 1536×1024 | 960×640 | 首页动画，显示宽 480 |
+| cartoon-ready.png | 1254×1254 | 700×700 | 开局插画，显示宽 350 |
+| cartoon-result-wide.png | 2172×724 | 1284×428 | 结算插画，显示宽 642 |
+| cartoon-title.webp | 1942×810 | 1180×492 | 标题，显示宽 590 |
+| cartoon-backdrop.png | 941×1672 | 864×1535 | 背景 cover，保留长屏放大余量 |
+
+标题沿用质量 90 的 WebP；背景 PNG 使用 256 色调色板压缩，其余角色 PNG 保留完整颜色。透明素材保留 alpha，boost.png 与手势 SVG 无需缩小。原始大图可由 Git 历史恢复。构建直接使用本地优化后的图片。
 
 `images/gesture-{drag,hold}.svg`：原创代码绘制的透明矢量操作插画，取代旧 Graphics 拼块手指。两者共用奶油手套、薄荷袖口和柔和高光；拖动用双向箭头，长按用金色按压光圈及闪电徽记。SVG 以 384×384 栅格化后在开局显示为 88×88，统一经 manifest 加载，无外部字体或素材。
